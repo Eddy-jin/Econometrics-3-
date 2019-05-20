@@ -1,0 +1,42 @@
+rm(list=ls()))
+
+library(AER)
+library(sandwich)
+
+#Question 3
+ 
+setwd("~/Desktop/Adv Metrics /Assignment 3")
+df <- read.csv("Q1 Data.csv")
+
+#Meaning Of Variables 
+
+#Id = Observation,
+#Year	= 1970 for all observations
+#Cost = Total cost,
+#Q = Total output,
+#Pl = Wage rate,
+#Sl = cost share for labor	,
+#Pk = Capital price index,
+#Sk = Cost share for capital,
+#Pf = Fuel price,
+#Sf	= Cost share for fuel
+
+#Variables 
+
+id = (df$id)
+yr = (df$YEAR)
+cost = (df$COST)
+q = (df$Q)
+pl = (df$PL)
+sl = (df$SL)
+pk = (df$PK)
+sk = (df$SK)
+pf = (df$PF)
+sf = (df$SF)
+
+K = cost*sk
+L = cost*sl 
+
+#Part 1 Running Regression
+
+A <- lm(log(q) ~ 1+log(K)+log(L)-0.5*(log(K/L))^2)
